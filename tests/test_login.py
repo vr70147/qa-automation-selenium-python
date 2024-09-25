@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
 import time
 
 def test_login():
@@ -26,19 +25,17 @@ def test_login():
     driver.quit()
     
 def test_invalid_login():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode for CI
-    chrome_options.add_argument("--no-sandbox")  # Bypass OS security restrictions in CI environments
-    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-
-    driver = webdriver.Chrome(options=chrome_options)
-
+    driver = webdriver.Chrome()
+    
     driver.get("https://www.saucedemo.com/")
-    driver.find_element(By.ID, "user-name").send_keys("invalid_user")
-    driver.find_element(By.ID, "password").send_keys("invalid_password")
+    
+    # Enter invalid credentials
+    driver.find_element(By.ID, "user-name").send_keys("wrong_user")
+    driver.find_element(By.ID, "password").send_keys("wrong_password")
+    
     driver.find_element(By.ID, "login-button").click()
-
+    
     error_message = driver.find_element(By.CSS_SELECTOR, ".error-message-container").text
     assert "Username and password do not match" in error_message
-
+    
     driver.quit()
