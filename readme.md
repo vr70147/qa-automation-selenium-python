@@ -1,6 +1,6 @@
 # QA Automation Project
 
-This project demonstrates an automated testing framework built using Selenium and PyTest, following ISTQB standards. The goal is to automate the testing of key user flows, including login, search functionality, and checkout, while ensuring comprehensive test coverage.
+This project demonstrates an automated testing framework built using Selenium and PyTest, following ISTQB standards. The goal is to automate the testing of key user flows, including login, product selection, cart, and checkout, while ensuring comprehensive test coverage.
 
 ## Project Overview
 
@@ -17,7 +17,7 @@ This project demonstrates an automated testing framework built using Selenium an
 
 ### 1. Test Objectives
 
-- Ensure the correct functionality of login, product search, and checkout flows.
+- Ensure the correct functionality of login, add to cart and checkout flows.
 - Verify the application's behavior with both valid and invalid data inputs.
 - Ensure error handling for empty or invalid form submissions is correct.
 
@@ -25,7 +25,7 @@ This project demonstrates an automated testing framework built using Selenium an
 
 - **Included:**
   - Login functionality
-  - Product search and filtering
+  - Product Selection
   - Cart and checkout flow
   - Form validation and error handling
 - **Excluded:**
@@ -36,13 +36,13 @@ This project demonstrates an automated testing framework built using Selenium an
 
 ### The following levels of testing will be conducted:
 
-- **Integration Testing:** Ensure interactions between login, search, and checkout components work as expected.
+- **Integration Testing:** Ensure interactions between login, product selection, cart, and checkout components work as expected.
 - **System Testing:** Validate that the entire user journey works correctly, from login to checkout.
 - **Regression Testing:** Ensure that changes to the application do not break existing functionality.
 
 ### 4. Test Types
 
-- **Functional Testing:** Verify that the core functionality (login, search, checkout) works correctly.
+- - **Functional Testing:** Verify that the core functionality (login, product selection, cart, checkout) works correctly.
 - **Negative Testing:** Test invalid inputs and ensure proper error handling.
 - **Boundary Testing:** Use boundary value analysis to test input limits (e.g., field length limits).
 
