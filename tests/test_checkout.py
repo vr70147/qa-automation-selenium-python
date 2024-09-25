@@ -4,8 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
 def test_checkout_flow():
-    driver = webdriver.Chrome()
-    
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+     
     # Step 1: Navigate to the homepage and login
     driver.get("https://www.saucedemo.com/")
     driver.find_element(By.ID, "user-name").send_keys("standard_user")
