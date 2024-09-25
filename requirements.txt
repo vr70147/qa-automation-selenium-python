@@ -4,7 +4,6 @@ asgiref==3.5.0
 attrs==24.2.0
 beautifulsoup4==4.12.3
 blinker==1.4
-Brlapi==0.8.3
 certifi==2024.8.30
 chardet==4.0.0
 charset-normalizer==2.0.6
