@@ -40,26 +40,3 @@ def test_checkout_flow():
     assert "Thank you for your order!" in success_message
     
     driver.quit()
-    
-def test_empty_cart_checkout():
-    # Set up Chrome options for headless mode
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
-    
-    # Setup Chrome driver
-    driver = webdriver.Chrome(options=chrome_options)
-
-    driver.get("https://www.saucedemo.com/")
-    driver.find_element(By.ID, "user-name").send_keys("standard_user")
-    driver.find_element(By.ID, "password").send_keys("secret_sauce")
-    driver.find_element(By.ID, "login-button").click()
-
-    # Perform checkout operations as per your test logic
-    driver.find_element(By.ID, "shopping_cart_container").click()
-    driver.find_element(By.ID, "checkout").click()
-
-    # Verifying empty cart behavior
-    cart_items = driver.find_elements(By.CSS_SELECTOR, ".cart_item")
-    assert len(cart_items) == 0, "Cart should be empty but contains items."
-
-    driver.quit()

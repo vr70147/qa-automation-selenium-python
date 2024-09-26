@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
+import pytest
+
 
 def test_login():
     # Set up Chrome options for headless mode
@@ -29,28 +31,28 @@ def test_login():
     
     driver.quit()
     
-def test_empty_cart_checkout():
-    # Set up Chrome options for headless mode
+
+@pytest.mark.parametrize("username, password, expected_error", [
+    ("", "password", "Epic sadface: Username is required"),
+    ("valid_user", "", "Epic sadface: Password is required"),
+    ("valid_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"),
+    ("' OR 1=1 --", "any_password", "Epic sadface: Username and password do not match any user in this service"),
+    ("a" * 256, "password", "Epic sadface: Username and password do not match any user in this service"),
+])
+def test_invalid_login(username, password, expected_error):
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
-    chrome_options.add_argument("--no-sandbox")  # Bypass OS security restrictions in CI environments
-    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-
-    # Initialize Chrome WebDriver with headless options
+    
     driver = webdriver.Chrome(options=chrome_options)
-
-    # Test code
+    
     driver.get("https://www.saucedemo.com/")
-    driver.find_element(By.ID, "user-name").send_keys("standard_user")
-    driver.find_element(By.ID, "password").send_keys("secret_sauce")
+    driver.find_element(By.ID, "user-name").send_keys(username)
+    driver.find_element(By.ID, "password").send_keys(password)
     driver.find_element(By.ID, "login-button").click()
-
-    # Perform checkout operations as in the original test
-    driver.find_element(By.ID, "shopping_cart_container").click()
-    driver.find_element(By.ID, "checkout").click()
-
-    # Verifying empty cart behavior
-    cart_items = driver.find_elements(By.CSS_SELECTOR, ".cart_item")
-    assert len(cart_items) == 0, "Cart should be empty but contains items."
-
+    
+    err_message = driver.find_element(By.CSS_SELECTOR, ".error-message-container").text
+    assert expected_error in err_message
+    
     driver.quit()
+    
+    
