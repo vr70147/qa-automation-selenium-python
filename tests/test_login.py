@@ -7,8 +7,6 @@ def test_login():
     # Set up Chrome options for headless mode
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
-    chrome_options.add_argument("--no-sandbox")  # Bypass OS security restrictions in CI environments
-    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
