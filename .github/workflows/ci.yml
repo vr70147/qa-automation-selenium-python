@@ -16,7 +16,7 @@ jobs:
           python-version: '3.x'
       - name: Add utils to PYTHONPATH
         run: |
-          excho "PYTHONPATH=$PYTHONPATH:$(pwd)/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH:$(pwd)/utils" >> $GITHUB_ENV
 
       - name: Install Python dependencies
         run: |
