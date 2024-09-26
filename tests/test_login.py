@@ -1,15 +1,17 @@
 from selenium import webdriver
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 
 def test_login():
+    # Set up Chrome options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--no-sandbox")  # Bypass OS security restrictions in CI environments
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    
     # Setup Chrome driver
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome(options=chrome_options)
     
     # Navigate to website
     driver.get("https://www.saucedemo.com/")

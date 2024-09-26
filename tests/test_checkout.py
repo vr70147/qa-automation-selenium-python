@@ -1,11 +1,18 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+
 
 def test_checkout_flow():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-     
+    # Set up Chrome options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--no-sandbox")  # Bypass OS security restrictions in CI environments
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    
+    # Setup Chrome driver
+    driver = webdriver.Chrome(options=chrome_options)
+    
     # Step 1: Navigate to the homepage and login
     driver.get("https://www.saucedemo.com/")
     driver.find_element(By.ID, "user-name").send_keys("standard_user")
@@ -37,8 +44,7 @@ def test_checkout_flow():
     driver.quit()
     
 def test_empty_cart_checkout():
-    # Use webdriver-manager to automatically handle ChromeDriver version
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
 
     driver.get("https://www.saucedemo.com/")
     driver.find_element(By.ID, "user-name").send_keys("standard_user")
