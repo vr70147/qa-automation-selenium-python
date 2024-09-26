@@ -1,9 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from utils import confest
+from utils.confest import valid_credentials
 
 
-def test_checkout_flow():
+def test_checkout_flow(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
@@ -13,8 +15,8 @@ def test_checkout_flow():
     
     # Step 1: Navigate to the homepage and login
     driver.get("https://www.saucedemo.com/")
-    driver.find_element(By.ID, "user-name").send_keys("standard_user")
-    driver.find_element(By.ID, "password").send_keys("secret_sauce")
+    driver.find_element(By.ID, "user-name").send_keys(valid_credentials["username"])
+    driver.find_element(By.ID, "password").send_keys(valid_credentials["password"])
     driver.find_element(By.ID, "login-button").click()
     
     # Step 2: Add a product to the cart

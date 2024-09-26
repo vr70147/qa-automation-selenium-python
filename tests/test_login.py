@@ -3,9 +3,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 import pytest
+from utils import confest
+from utils.confest import valid_credentials
 
 
-def test_login():
+def test_login(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
@@ -16,11 +18,8 @@ def test_login():
     # Navigate to website
     driver.get("https://www.saucedemo.com/")
     
-    # Find the username and password fields
-    driver.find_element(By.ID, "user-name").send_keys("standard_user")
-    driver.find_element(By.ID, "password").send_keys("secret_sauce")
-    
-    # Click to login
+    driver.find_element(By.ID, "user-name").send_keys(valid_credentials["username"])
+    driver.find_element(By.ID, "password").send_keys(valid_credentials["password"])
     driver.find_element(By.ID, "login-button").click()
     
     # Add sleep to wait until page will load
