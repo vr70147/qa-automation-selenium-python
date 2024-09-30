@@ -1,14 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from utils import confest
-from utils.confest import valid_credentials
 
 
 def test_checkout_flow(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)

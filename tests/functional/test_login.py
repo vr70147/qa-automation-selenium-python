@@ -3,14 +3,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 import pytest
-from utils import confest
-from utils.confest import valid_credentials
 
 
 def test_login(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -40,7 +38,7 @@ def test_login(valid_credentials):
 ])
 def test_invalid_login(username, password, expected_error):
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     driver = webdriver.Chrome(options=chrome_options)
     
@@ -53,5 +51,32 @@ def test_invalid_login(username, password, expected_error):
     assert expected_error in err_message
     
     driver.quit()
+    
+@pytest.mark.parametrize("username, password, expected_error", [
+    ("a" * 255, "password", "Epic sadface: Username and password do not match any user in this service"),  # Maximum allowed username length
+    ("a" * 256, "password", "Epic sadface: Username and password do not match any user in this service"),  # Exceed maximum username length
+    ("", "password", "Epic sadface: Username is required"),  # Empty username
+    ("valid_user", "", "Epic sadface: Password is required"),  # Empty password
+])
+def test_login_boundary_values(username, password, expected_error):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    driver.get("https://www.saucedemo.com/")
+    driver.find_element(By.ID, "user-name").send_keys(username)
+    driver.find_element(By.ID, "password").send_keys(password)
+    driver.find_element(By.ID, "login-button").click()
+    
+    # Verify the error message for invalid input
+    err_message = driver.find_element(By.CSS_SELECTOR, ".error-message-container").text
+    assert expected_error in err_message
+    
+    driver.quit()
+    
+
+    
+    
     
     

@@ -1,13 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
-from utils import confest
-from utils.confest import valid_credentials
 
 def test_add_to_cart(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -34,7 +32,7 @@ def test_add_to_cart(valid_credentials):
 def test_remove_from_cart(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -60,7 +58,7 @@ def test_remove_from_cart(valid_credentials):
 def test_empty_cart_checkout(valid_credentials):
     # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (no GUI)
+    chrome_options.add_argument("--headless")
     
     # Setup Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
