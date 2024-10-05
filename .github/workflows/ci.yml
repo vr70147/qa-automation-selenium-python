@@ -25,10 +25,6 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run Selenium tests
-        run: |
-          pytest --alluredir=allure-results
-
       - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
           pytest --browser ${{ matrix.browser }} --alluredir=allure-results
