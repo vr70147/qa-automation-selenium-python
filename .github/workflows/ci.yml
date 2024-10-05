@@ -5,7 +5,9 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,6 +29,6 @@ jobs:
         run: |
           pytest --alluredir=allure-results
 
-      - name: Generate Allure Report
+      - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
-          allure generate allure-results --clean -o allure-report
+          pytest --browser ${{ matrix.browser }} --alluredir=allure-results
