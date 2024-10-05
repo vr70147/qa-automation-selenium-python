@@ -18,10 +18,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Add utils to PYTHONPATH
-        run: |
-          echo "PYTHONPATH=$PYTHONPATH:$(pwd)/utils" >> $GITHUB_ENV
-
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
