@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         browser: [chrome, firefox]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,6 +25,11 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
+
+      - name: Install Allure
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y allure
 
       - name: Run Selenium tests on ${{ matrix.browser }}
         run: |
